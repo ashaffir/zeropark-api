@@ -16,7 +16,7 @@ from db_mysql import *
 
 base_url = 'https://panel.zeropark.com/api/'
 
-zp_api_token = 'AAABXU9pW0WfSZA+OLXcWPRZOFml+OnER72riUe9GjRsmNP+vJOFUdD4w0iMNFFD4ribrYM3PeaSEr4rfWGGeA=='
+zp_api_token = API_TOKEN
 
 # campaign = "5b0e8340-6728-11e7-afa1-0eda985eb958"
 LIMIT = "100"

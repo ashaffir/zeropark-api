@@ -90,10 +90,11 @@ def source_monitoring(campaign_id, CPA):
         while True:
             bad_sources = []
             bid = get_campaign_bid(campaign_id)
-            camp_data = read_campaign_data(campaign_id, 'sources', 'THIS_MONTH')
+            camp_data = read_campaign_data(campaign_id, 'sources', 'LAST_7_DAYS')
             mana = int(CPA / bid)
             print("Bid = {} ".format(bid))
             print("MANA = {} / {} = {} impressions".format(CPA, bid, mana))
+            print("THRESHOLD = 3 x {} = {} impressions".format(mana, 3 * mana))
 
             source_cnt = 0
             for source in camp_data:
@@ -102,7 +103,10 @@ def source_monitoring(campaign_id, CPA):
                 source_conversions = source["stats"]["conversions"]
                 source_state = source["state"]["state"]
 
-                if source_redirects > 3 * mana and source_state == 'ACTIVE':
+                if source_redirects > 0.8 * 3 * mana and source_redirects < 3 * mana:
+                    print("Approaching threshold: {} with {} redirects".format(
+                        source_name, source_redirects))
+                elif source_redirects > 3 * mana and source_state == 'ACTIVE':
                     bad_sources.append(source_name)
                     print("UNDER-PERFORMING source ## {} ##: \n \
                     source_state = {} \n \
